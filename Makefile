@@ -1,13 +1,17 @@
-INCLUDES:=-I $$CLEAN_HOME/lib/Platform -I $$CLEAN_HOME/lib/Generics -I $$CLEAN_HOME/lib/StdLib
-FLAGS:=-no-opt-link -l -no-pie -l -static
-CLIBS:=-l rust.o
-EXE:= clean
+FLAGS:=-no-opt-link -l -no-pie
+RUSTDEPS:= -l -ldl -l -lpthread -l -lgcc_s -l -lc -l -lm -l -lrt -l -lutil
+CLIBS:=-l librust.a
+CLEANFILES:= clean
+EXE:= clean_rust
 
-all: rust *.icl
-	clm $(FLAGS) $(INCLUDES) $(CLIBS) $(EXE) -o $(EXE)
+all: librust *.icl
+	clm $(FLAGS) $(CLIBS) $(RUSTDEPS) $(CLEANFILES) -o $(EXE)
 
-rust: rust.rs
-	rustc rust.rs --crate-type staticlib --emit obj
+librust: rust.rs
+	rustc rust.rs --crate-type staticlib
 
 clean:
-	$(RM) -r "Clean System Files" $(EXE) IPC.o
+	$(RM) -r "Clean System Files" $(EXE) librust.a
+
+run: all
+	./$(EXE)

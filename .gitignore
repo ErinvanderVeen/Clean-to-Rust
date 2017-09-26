@@ -27,5 +27,6 @@ Cargo.lock
 **/*.rs.bk
 
 # Project specific
-clean
+clean_rust
 *.o
+*.a

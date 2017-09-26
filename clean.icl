@@ -1,9 +1,9 @@
 module clean
 
 Start :: !*World -> (!Int, !*World)
-Start world = forty_two_rs world
+Start world = add_rs 42 1024 world
 
-forty_two_rs :: !*World -> (!Int, !*World)
-forty_two_rs w = code {
-	ccall forty_two ":I:A"
+add_rs :: !Int !Int !*World -> (!Int, !*World)
+add_rs a b w = code {
+	ccall add "II:I:A"
 }

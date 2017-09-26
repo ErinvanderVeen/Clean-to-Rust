@@ -1,5 +1,4 @@
 #[no_mangle]
-
-pub extern fn forty_two() -> u64 {
-	42
+pub extern fn add(lhs:u64, rhs: u64) -> u64 {
+	lhs + rhs
 }
